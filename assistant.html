@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المساعد الذكي – ميدي كير</title>
+  <meta name="description" content="استشر مساعدنا الذكي بالذكاء الاصطناعي للحصول على إرشادات فورية وجدول جرعاتك الطبية." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Glowing Mesh Backgrounds -->
+  <div class="glowing-bg-mesh"></div>
+  <div class="glowing-bg-mesh secondary"></div>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>ميدي كير</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#home">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="features.html">الميزات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="doctors.html">الأطباء</a>
+        <a href="assistant.html" class="active">المساعد الذكي</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="testimonials.html">الآراء</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section" style="padding-bottom: 2rem;">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-down">مساعد الصحة <span>الذكي</span></h2>
+        <p class="section-intro" data-aos="fade-up">احصل على إرشادات فورية بشأن جرعاتك، وتفاعلات الأدوية، وجدولك العلاجي عبر روبوتنا الآمن.</p>
+        
+        <div class="assistant-container" data-aos="zoom-in" data-aos-duration="1000">
+          <!-- Suggested Inquiries Sidebar -->
+          <aside class="assistant-sidebar">
+            <h4 style="font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700;">استفسارات مقترحة</h4>
+            <button class="sidebar-option active" data-query="كيف يساعدني ميدي كير في تتبع أدويتي؟">
+              <i class="fas fa-pills"></i>
+              <span>تتبع الأدوية</span>
+            </button>
+            <button class="sidebar-option" data-query="هل يحتوي النظام على تحذيرات لتداخلات الأدوية؟">
+              <i class="fas fa-triangle-exclamation"></i>
+              <span>تداخلات الأدوية</span>
+            </button>
+            <button class="sidebar-option" data-query="كيف أحجز موعداً افتراضياً مع الطبيب؟">
+              <i class="fas fa-video"></i>
+              <span>حجز المواعيد</span>
+            </button>
+            <button class="sidebar-option" data-query="هل يمكنني مزامنة بيانات أدويتي مع ساعتي الذكية؟">
+              <i class="fas fa-clock"></i>
+              <span>مزامنة الساعة الذكية</span>
+            </button>
+          </aside>
+
+          <!-- Chat Board Panel -->
+          <div class="glass-card assistant-chat-panel">
+            <!-- Header -->
+            <div class="chat-header">
+              <div class="assistant-avatar">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="chat-title">
+                <h3>مساعد ميدي بوت</h3>
+                <p><i class="fas fa-circle" style="font-size: 0.6rem; margin-left: 0.25rem; color:#10b981;"></i> متصل الآن</p>
+              </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+              <div class="chat-message received">
+                <p>مرحباً بك! أنا ميدي بوت، مساعدك الذكي المخصص للرعاية الطبية. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن إعداد التنبيهات، حجز مواعيد الأطباء، ومزامنة الأجهزة.</p>
+              </div>
+            </div>
+
+            <!-- Input Controls -->
+            <form class="chat-input-area" id="chat-form">
+              <input type="text" id="chat-input" class="chat-input" placeholder="اكتب سؤالك الطبي هنا..." required />
+              <button type="submit" class="chat-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane" style="transform: rotate(180deg);"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <i class="fas fa-heartbeat" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+        <span>ميدي كير © ٢٠٢٦</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script src="script.js" type="module"></script>
+</body>
+</html>

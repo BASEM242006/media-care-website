@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الآراء – ميدي كير</title>
+  <meta name="description" content="اقرأ تعليقات وآراء المرضى والممارسين الصحيين الذين يستخدمون نظام ميدي كير حول العالم." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Glowing Mesh Backgrounds -->
+  <div class="glowing-bg-mesh"></div>
+  <div class="glowing-bg-mesh secondary"></div>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>ميدي كير</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#home">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="features.html">الميزات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="doctors.html">الأطباء</a>
+        <a href="assistant.html">المساعد الذكي</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="testimonials.html" class="active">الآراء</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section" id="testimonials">
+      <div class="container">
+        <h2 class="section-title">ماذا يقول <span>مستخدمونا</span></h2>
+        <p class="section-intro">اقرأ آراء وتعليقات المرضى والممارسين الصحيين الذين يستخدمون نظام جدولة وتذكير الأدوية حول العالم.</p>
+        
+        <div class="testimonial-carousel" data-aos="zoom-in" data-aos-duration="1000">
+          <div class="testimonial-wrapper" id="testimonial-wrapper">
+            <!-- Card 1 -->
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"لقد غير ميدي كير طريقتي في تنظيم أدويتي ووصفاتي بالكامل. تنبيهات الساعة الذكية دقيقة للغاية ولوحة التحكم واضحة ومنظمة!"</p>
+              </div>
+              <p class="author">- سارة ل.، مريضة</p>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"أحب التواصل مع مساعد الصحة بالذكاء الاصطناعي، فهو يجيب عن الأسئلة بخصوص الآثار الجانبية للأدوية فوراً. نظام فاخر بحق."</p>
+              </div>
+              <p class="author">- أحمد ك.، مريض</p>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"كطبيبة عائلية، حجز الاستشارات وتنظيم الجرعات للمرضى أصبح أسهل بكثير. يرسل تقارير التزام المرضى لملفي العيادي تلقائياً."</p>
+              </div>
+              <p class="author">- د. مايا ر.، طبيبة عائلة</p>
+            </div>
+
+            <!-- Loop Duplicates for Smooth Infinite Carousel -->
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"لقد غير ميدي كير طريقتي في تنظيم أدويتي ووصفاتي بالكامل. تنبيهات الساعة الذكية دقيقة للغاية ولوحة التحكم واضحة ومنظمة!"</p>
+              </div>
+              <p class="author">- سارة ل.، مريضة</p>
+            </div>
+            
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"أحب التواصل مع مساعد الصحة بالذكاء الاصطناعي، فهو يجيب عن الأسئلة بخصوص الآثار الجانبية للأدوية فوراً. نظام فاخر بحق."</p>
+              </div>
+              <p class="author">- أحمد ك.، مريض</p>
+            </div>
+            
+            <div class="glass-card testimonial-card">
+              <div>
+                <i class="fas fa-quote-left" style="font-size: 1.5rem; color: var(--primary-color); opacity: 0.3; margin-bottom: 1rem; display:block;"></i>
+                <p class="quote">"كطبيبة عائلية، حجز الاستشارات وتنظيم الجرعات للمرضى أصبح أسهل بكثير. يرسل تقارير التزام المرضى لملفي العيادي تلقائياً."</p>
+              </div>
+              <p class="author">- د. مايا ر.، طبيبة عائلة</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <i class="fas fa-heartbeat" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+        <span>ميدي كير © ٢٠٢٦</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script src="script.js" type="module"></script>
+</body>
+</html>

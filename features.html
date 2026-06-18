@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الميزات – ميدي كير</title>
+  <meta name="description" content="استكشف ميزات نظام ميدي كير بما في ذلك التنبيهات التفاعلية، تكامل الساعات الذكية، والتشخيص بالذكاء الاصطناعي." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Glowing Mesh Backgrounds -->
+  <div class="glowing-bg-mesh"></div>
+  <div class="glowing-bg-mesh secondary"></div>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>ميدي كير</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#home">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="features.html" class="active">الميزات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="doctors.html">الأطباء</a>
+        <a href="assistant.html">المساعد الذكي</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="testimonials.html">الآراء</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section" id="features">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-down">ميزات النظام <span>الاستثنائية</span></h2>
+        <p class="section-intro" data-aos="fade-up">مجموعة متميزة من الأدوات التشخيصية الذكية، وتنبيهات الالتزام، وحماية البيانات المصممة لعافيتك.</p>
+        
+        <div class="grid features-grid">
+          <!-- Feature Card 1 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="feature-icon"><i class="fas fa-bell"></i></div>
+            <h3>تذكير ذكي بالأدوية</h3>
+            <p>تنبيهات ذكية متكيفة تعتمد على مواعيد الوصفات الطبية الخاصة بك، والجرعات المحددة، وسجلات التفاعل اليومية.</p>
+          </article>
+
+          <!-- Feature Card 2 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="150">
+            <div class="feature-icon"><i class="fas fa-robot"></i></div>
+            <h3>مساعد الصحة الذكي</h3>
+            <p>استشر وكيلنا التشخيصي الذكي. احصل على إرشادات الجرعات السريعة، ومعلومات الأدوية، ونصائح العافية الموثوقة.</p>
+          </article>
+
+          <!-- Feature Card 3 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="200">
+            <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+            <h3>حجز المواعيد الطبية</h3>
+            <p>تكامل مباشر مع الجداول الطبية. احجز استشارات الفيديو الآمنة أو الزيارات العيادية مع أطباء معتمدين بسهولة.</p>
+          </article>
+
+          <!-- Feature Card 4 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="250">
+            <div class="feature-icon"><i class="fas fa-calendar-day"></i></div>
+            <h3>مزامنة الجدول اليومي</h3>
+            <p>لوحة تحكم موحدة للجدولة البصرية. مزامنة فورية مع التقويمات المحلية، والساعات الذكية، وأحزمة الرعاية الذكية.</p>
+          </article>
+
+          <!-- Feature Card 5 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+            <h3>الإحصاءات الصحية</h3>
+            <p>راجع رسوماً بيانية شاملة توضح نسب الالتزام بالجرعات، وسجلات التعافي، والمؤشرات الفسيولوجية المختلفة لعافيتك.</p>
+          </article>
+
+          <!-- Feature Card 6 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="350">
+            <div class="feature-icon"><i class="fas fa-kit-medical"></i></div>
+            <h3>جهات اتصال الطوارئ</h3>
+            <p>تخصيص إشعارات العائلة بنقرة واحدة، وإرسال رسائل فورية للأطباء، وطلب الطوارئ الطبية القريبة في الحالات الحرجة.</p>
+          </article>
+
+          <!-- Feature Card 7 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="400">
+            <div class="feature-icon"><i class="fas fa-cloud-arrow-up"></i></div>
+            <h3>مزامنة سحابية مشفرة</h3>
+            <p>مزامنة خلفية تلقائية للبيانات. استرجع جداول الأدوية الخاصة بك فورياً على أي هاتف أو متصفح كمبيوتر بأمان.</p>
+          </article>
+
+          <!-- Feature Card 8 -->
+          <article class="feature-card glass-card" data-aos="zoom-in" data-aos-delay="450">
+            <div class="feature-icon"><i class="fas fa-lock"></i></div>
+            <h3>أمن عسكري المستوى</h3>
+            <p>جميع أوراق الوصفات الطبية، ملفات المرضى، ورسائل الدردشة مشفرة بمفاتيح تشفير متقدمة من طرف إلى طرف لخصوصية مطلقة.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <i class="fas fa-heartbeat" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+        <span>ميدي كير © ٢٠٢٦</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script src="script.js" type="module"></script>
+</body>
+</html>

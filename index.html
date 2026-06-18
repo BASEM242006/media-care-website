@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ميدي كير – نظام تذكير الأدوية الفاخر</title>
+  <meta name="description" content="حافظ على انتظام جرعات أدويتك مع تنبيهات ذكية، دردشة تشخيصية بالذكاء الاصطناعي، وحجز مواعيد سهلة مع الأطباء المعتمدين." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Glowing Mesh Backgrounds -->
+  <div class="glowing-bg-mesh"></div>
+  <div class="glowing-bg-mesh secondary"></div>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>ميدي كير</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#home" class="active">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="features.html">الميزات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="doctors.html">الأطباء</a>
+        <a href="assistant.html">المساعد الذكي</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="testimonials.html">الآراء</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+</nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Home Hero Section -->
+    <section id="home" class="section hero">
+      <div class="container">
+        <div class="hero-content" data-aos="fade-left" data-aos-duration="1000">
+          <h1>حافظ على انتظام <span>أدويتك</span></h1>
+          <p class="tagline">جدولة ذكية، تنبيهات مخصصة، إعادة تعبئة تلقائية، دردشة تشخيصية ذكية، وحجز مواعيد مع الأطباء عبر الفيديو في نظام متكامل.</p>
+          <div class="cta-buttons">
+            <a href="features.html" class="btn btn-primary">استكشف الميزات</a>
+            <a href="contact.html" class="btn btn-secondary">ابدأ الآن <i class="fas fa-arrow-left" style="margin-right: 0.5rem; transform: scaleX(-1);"></i></a>
+          </div>
+        </div>
+        <!-- Three.js Canvas Container -->
+        <div class="hero-canvas-container" data-aos="fade-right" data-aos-duration="1200">
+          <canvas id="hero-canvas" class="hero-canvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brief Features Overview Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">لماذا تختار <span>ميدي كير</span></h2>
+        <p class="section-intro">اختبر الجيل القادم من أنظمة تذكير الرعاية الصحية المبنية على نماذج تفاعل متطورة.</p>
+        
+        <div class="grid grid-3">
+          <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon"><i class="fas fa-bell"></i></div>
+            <h3 style="margin: 1.25rem 0 0.75rem;">التنبيهات الذكية</h3>
+            <p>تنبيهات متكيفة تتزامن مع هاتفك وأجهزتك القابلة للارتداء. لن تفوت أي جرعة.</p>
+            <a href="features.html" style="color: var(--primary-color); font-weight:700; display:inline-block; margin-top: 1rem; font-size: 0.9rem;">معرفة المزيد <i class="fas fa-chevron-left" style="font-size:0.8rem; margin-right:0.25rem;"></i></a>
+          </div>
+          
+          <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon"><i class="fas fa-robot"></i></div>
+            <h3 style="margin: 1.25rem 0 0.75rem;">مساعد الصحة الذكي</h3>
+            <p>مساعد تشخيصي تفاعلي يقدم معلومات طبية وإرشادات الجرعات ويجيب عن الأسئلة فوراً.</p>
+            <a href="assistant.html" style="color: var(--primary-color); font-weight:700; display:inline-block; margin-top: 1rem; font-size: 0.9rem;">تحدث مع الذكاء الاصطناعي <i class="fas fa-chevron-left" style="font-size:0.8rem; margin-right:0.25rem;"></i></a>
+          </div>
+          
+          <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+            <h3 style="margin: 1.25rem 0 0.75rem;">أمن عسكري المستوى</h3>
+            <p>تشفير طرف إلى طرف لملفات المزامنة الطبية وامتثال تام لمعايير GDPR و HIPAA للخصوصية المطلقة.</p>
+            <a href="features.html" style="color: var(--primary-color); font-weight:700; display:inline-block; margin-top: 1rem; font-size: 0.9rem;">عرض تفاصيل الأمان <i class="fas fa-chevron-left" style="font-size:0.8rem; margin-right:0.25rem;"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Quick Preview Section -->
+    <section class="section" style="background: rgba(14, 165, 233, 0.02); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+      <div class="container">
+        <div class="grid grid-2 about-grid">
+          <div data-aos="fade-left">
+            <h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">إحداث ثورة في <span>العادات الصحية</span></h2>
+            <p style="margin-bottom: 1.75rem;">يخدم ميدي كير أكثر من مليون مريض حول العالم، مما يعزز الالتزام بالأدوية، ويقلل دخول المستشفيات، ويقرب المسافات بين الأطباء والمرضى.</p>
+            <a href="about.html" class="btn btn-secondary">اقرأ قصتنا</a>
+          </div>
+          <div class="stats-panel" data-aos="fade-right">
+            <div class="glass-card stat-item">
+              <div class="stat-num" id="stat-adherence">98%</div>
+              <div class="stat-label">معدل الالتزام</div>
+            </div>
+            <div class="glass-card stat-item">
+              <div class="stat-num" id="stat-users">1.2M</div>
+              <div class="stat-label">المستخدمين النشطين</div>
+            </div>
+            <div class="glass-card stat-item">
+              <div class="stat-num" id="stat-doctors">500+</div>
+              <div class="stat-label">الأطباء المعتمدون</div>
+            </div>
+            <div class="glass-card stat-item">
+              <div class="stat-num" id="stat-ratings">4.9</div>
+              <div class="stat-label">تقييم المتجر</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <i class="fas fa-heartbeat" style="color: var(--primary-color); margin-left: 0.5rem;"></i>
+        <span>ميدي كير © ٢٠٢٦</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- JavaScript -->
+  <script src="script.js" type="module"></script>
+</body>
+</html>
