@@ -52,6 +52,19 @@
       <div class="nav-actions">
         <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
         <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="login-btn" class="login-btn" aria-label="Login with mobile">تسجيل الدخول</button>
+        <!-- Login Modal -->
+        <div id="login-modal" class="modal">
+          <h3 style="margin-bottom:1rem; text-align:center;">تسجيل الدخول</h3>
+          <form id="login-form-modal">
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label for="mobile-number" style="display:block; margin-bottom:0.5rem;">رقم الجوال</label>
+              <input type="tel" id="mobile-number" placeholder="مثال: 0591234567" required style="width:100%; padding:0.5rem; border:1px solid var(--glass-border); border-radius:var(--border-radius-sm); background:var(--glass-bg); color:var(--text-primary);"/>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">دخول</button>
+          </form>
+        </div>
+        <div id="overlay" class="overlay"></div>
         <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
       </div>
     </div>

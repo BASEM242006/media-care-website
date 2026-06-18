@@ -249,6 +249,9 @@ const translations = {
 
 // ---------- Loading Screen ----------
 window.addEventListener('load', () => {
+  // Initialize auth state after other init functions
+  applyAuthState();
+  
   const loader = $('#loading-screen');
   if (loader) {
     loader.classList.add('fade-out');
@@ -265,6 +268,79 @@ window.addEventListener('load', () => {
   initChatbot();
   initContactForm();
 });
+
+// ---------- Authentication Functions ----------
+function initLoginModal() {
+  const loginBtn = $('#login-btn');
+  const loginModal = $('#login-modal');
+  const overlay = $('#overlay');
+  const loginForm = $('#login-form-modal');
+  if (!loginBtn || !loginModal || !overlay || !loginForm) return;
+
+  // Open modal
+  loginBtn.addEventListener('click', () => {
+    loginModal.classList.add('show');
+    overlay.classList.add('show');
+  });
+
+  // Close modal when clicking overlay
+  overlay.addEventListener('click', () => {
+    loginModal.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+
+  // Form submission
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const phoneInput = $('#mobile-number');
+    const phone = phoneInput.value.trim();
+    const isValid = /^\d{6,15}$/.test(phone);
+    if (!isValid) {
+      showToast(currentLang === 'ar' ? 'الرجاء إدخال رقم هاتف صالح.' : 'Please enter a valid phone number.');
+      return;
+    }
+    localStorage.setItem('userPhone', phone);
+    applyAuthState();
+    // Close modal
+    loginModal.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+}
+
+function applyAuthState() {
+  const phone = localStorage.getItem('userPhone');
+  const loginBtn = $('#login-btn');
+  if (!loginBtn) return;
+  if (phone) {
+    // Logged in state
+    loginBtn.textContent = currentLang === 'ar' ? 'تسجيل الخروج' : 'Logout';
+    loginBtn.id = 'logout-btn';
+    loginBtn.removeEventListener('click', initLoginModal);
+    // Show manage buttons
+    const manageElements = document.querySelectorAll('.manage-btn');
+    manageElements.forEach(el => el.classList.add('show'));
+    // Attach logout handler
+    loginBtn.addEventListener('click', logoutHandler);
+  } else {
+    // Logged out state
+    loginBtn.textContent = currentLang === 'ar' ? 'تسجيل الدخول' : 'Login';
+    loginBtn.id = 'login-btn';
+    loginBtn.removeEventListener('click', logoutHandler);
+    // Hide manage buttons
+    const manageElements = document.querySelectorAll('.manage-btn');
+    manageElements.forEach(el => el.classList.remove('show'));
+    // Reinitialize login modal on login button
+    initLoginModal();
+  }
+}
+
+function logoutHandler() {
+  localStorage.removeItem('userPhone');
+  applyAuthState();
+}
+
+// Initialize login modal on startup
+initLoginModal();
 
 // ---------- Dark/Light Mode ----------
 function initTheme() {
@@ -434,6 +510,9 @@ function initLanguage() {
         if (translation) el.innerHTML = translation;
       }
     });
+    
+    // Update login btn text dynamically
+    applyAuthState();
   }
 
   langToggle.addEventListener('click', () => {
@@ -569,9 +648,6 @@ function initTestimonials() {
   if (cards.length === 0) return;
 
   // Seamless horizontal scroll marquee using GSAP
-  // Testimonials wrapper width is auto, contains 6 cards (3 actual, 3 duplicate)
-  // We scroll wrapper horizontally from X = 0 to X = -50% (exactly width of first 3 cards)
-  // then loop instantly.
   gsap.to(wrapper, {
     xPercent: -50,
     ease: 'none',
@@ -748,8 +824,8 @@ function renderDoctors(){
     card.innerHTML=`<div class="doctor-photo"><i class="fas fa-user-doctor"></i></div>
 <h3>${d.name}</h3>
 <p>${d.specialty}</p>
-<span style="font-size:0.8rem; color: var(--text-secondary); margin:0.5rem 0 1.5rem; display:block;">خبرة ${d.experience} سنة</span>
-<button class="edit-doctor btn btn-secondary" data-id="${d.id}">تعديل</button>`;
+<span style="font-size:0.8rem; color: var(--text-secondary); margin:0.5rem 0 1.5rem; display:block;">${currentLang==='ar'?'خبرة '+d.experience+' سنة':d.experience+' Years Experience'}</span>
+<button class="edit-doctor btn btn-secondary manage-btn ${localStorage.getItem('userPhone')?'show':''}" data-id="${d.id}">${currentLang==='ar'?'تعديل':'Edit'}</button>`;
     container.appendChild(card);
   });
 }

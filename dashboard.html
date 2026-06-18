@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم – ميدي كير</title>
+  <meta name="description" content="لوحة تحكم المريض لإدارة الأدوية، إشعارات، وحجز المواعيد." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Header / Navbar (reuse) -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo"><i class="fas fa-heartbeat"></i><span>ميدي كير</span></a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#home" class="active">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="features.html">الميزات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="doctors.html">الأطباء</a>
+        <a href="assistant.html">المساعد الذكي</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+        <a href="contact.html">اتصل بنا</a>
+        <a href="dashboard.html">لوحة التحكم</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">EN</button>
+        <button id="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+        <button id="menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Dashboard Hero -->
+    <section class="section hero" id="dashboard-hero">
+      <div class="container">
+        <div class="hero-content" data-aos="fade-left" data-aos-duration="1000">
+          <h1>مرحبا بك في لوحة التحكم</h1>
+          <p class="tagline">إدارة أدويةك، إشعاراتك، وحجز مواعيدك بسهولة.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Patient Registration / Login Tabs -->
+    <section class="section" id="auth-section" style="padding: 3rem 0;">
+      <div class="container" style="max-width: 800px;">
+        <div class="tab-group" style="display:flex; gap:1rem; margin-bottom:2rem;">
+          <button class="tab-btn active" data-target="register" style="flex:1; padding:0.75rem; background:var(--accent-gradient); color:#fff; border:none; border-radius:var(--border-radius-md);">التسجيل</button>
+          <button class="tab-btn" data-target="login" style="flex:1; padding:0.75rem; background:var(--glass-bg); color:var(--text-primary); border:1px solid var(--glass-border); border-radius:var(--border-radius-md);">تسجيل الدخول</button>
+        </div>
+        <!-- Register Form -->
+        <form id="register-form" class="auth-form" style="display:block;">
+          <div class="form-group">
+            <label for="reg-name">الاسم الكامل</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="أحمد علي" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-email">البريد الإلكتروني</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="example@mail.com" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-password">كلمة السر</label>
+            <input type="password" id="reg-password" class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-primary">إنشاء حساب</button>
+        </form>
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form" style="display:none;">
+          <div class="form-group">
+            <label for="login-email">البريد الإلكتروني</label>
+            <input type="email" id="login-email" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">كلمة السر</label>
+            <input type="password" id="login-password" class="form-control" required />
+          </div>
+          <button type="submit" class="btn btn-primary">دخول</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Medication Cards Placeholder -->
+    <section class="section" id="medications" style="padding: 2rem 0; background:rgba(14,165,233,0.02);">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center; margin-bottom:2rem;">أدويتك المقررة</h2>
+        <div class="grid grid-3" id="medication-grid" style="gap:1.5rem;">
+          <!-- Example card, will be duplicated via JS -->
+          <div class="glass-card" style="padding:1.5rem; text-align:center;">
+            <div class="feature-icon" style="margin:auto; width:60px; height:60px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--border-radius-md); display:flex; align-items:center; justify-content:center;">
+              <i class="fas fa-pills" style="color:var(--primary-color);"></i>
+            </div>
+            <h3 style="margin-top:1rem;">اسم الدواء</h3>
+            <p>الجرعة: 2 × يوميًا</p>
+            <button class="btn btn-secondary">تعديل</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (reuse) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <i class="fas fa-heartbeat" style="color:var(--primary-color); margin-left:0.5rem;"></i>
+        <span>ميدي كير © ٢٠٢٦</span>
+      </div>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    // Tab switching logic
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const registerForm = document.getElementById('register-form');
+    const loginForm = document.getElementById('login-form');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.toggle('active'));
+        if (btn.dataset.target === 'register') {
+          registerForm.style.display = 'block';
+          loginForm.style.display = 'none';
+        } else {
+          registerForm.style.display = 'none';
+          loginForm.style.display = 'block';
+        }
+      });
+    });
+  </script>
+  <script src="script.js" type="module"></script>
+</body>
+</html>

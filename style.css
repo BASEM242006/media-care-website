@@ -62,11 +62,12 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-primary);
+  /* Premium dark gradient background */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
+  transition: background var(--transition-normal), color var(--transition-normal);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -239,19 +240,26 @@ a {
 
 /* ---------- Header / Navbar ---------- */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: var(--navbar-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  height: 75px;
-  display: flex;
-  align-items: center;
-  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-content .tagline {
+    font-size: 1rem;
+  }
 }
 
 .navbar .container {
@@ -286,7 +294,7 @@ a {
 .nav-links a {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: #fff;
   position: relative;
   padding: 0.5rem 0;
 }
@@ -354,11 +362,27 @@ a {
 
 /* ---------- Hero Section ---------- */
 .hero {
+  /* Premium hero background with image */
+  background: url('assets/images/hero_background.png') center/cover no-repeat;
+  background-color: var(--accent-gradient);
+  background-blend-mode: overlay;
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
   display: flex;
   align-items: center;
   padding-top: 75px;
 }
+
+/* Overlay to improve text readability */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
 
 .hero .container {
   display: grid;
@@ -369,8 +393,16 @@ a {
 }
 
 .hero-content {
-  max-width: 650px;
+  position: relative;
+  z-index: 1;
 }
+
+.hero-content h1,
+.hero-content .tagline {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
 
 .hero-content h1 {
   font-size: 3.75rem;
@@ -414,12 +446,13 @@ a {
 .btn-primary {
   background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.45);
+  box-shadow: 0 8px 20px -4px rgba(14, 165, 233, 0.5);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 32px -5px rgba(14, 165, 233, 0.6);
+  box-shadow: 0 12px 28px -4px rgba(14, 165, 233, 0.7);
 }
 
 .btn-secondary {
@@ -474,10 +507,16 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--primary-color);
   box-shadow: 0 8px 16px var(--glass-shadow);
   transition: all var(--transition-fast);
+}
+
+.feature-icon:hover {
+  background: var(--accent-gradient);
+  color: #fff;
+  transform: scale(1.07);
 }
 
 .feature-card:hover .feature-icon {
@@ -757,19 +796,20 @@ a {
   background: var(--accent-gradient);
   border: none;
   color: white;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--border-radius-md);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform var(--transition-fast);
-  box-shadow: 0 4px 16px var(--glow-color);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 6px 20px var(--glow-color);
 }
 
 .chat-send-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.07);
+  box-shadow: 0 8px 24px var(--glow-color);
 }
 
 .sidebar-option {
@@ -1180,4 +1220,22 @@ textarea.form-control {
 [dir="rtl"] .toast-container {
   left: 2rem;
   right: auto;
+}
+
+/* ---------- Buttons ---------- */
+.login-btn {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+.login-btn:hover {
+  background: var(--primary-hover);
+}
+.manage-btn {
+  display: none;
 }
