@@ -1,5 +1,4 @@
-// server.js – Simple Express backend for medication reminders
-
+// api/server.js – Express backend for Vercel Serverless Function & Local testing
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -13,8 +12,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '.')));
-
 
 // Initialize Twilio client optionally (fallback to mock if credentials are missing)
 const HAS_TWILIO = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_FROM_NUMBER;
@@ -22,25 +19,36 @@ const twilioClient = HAS_TWILIO ? new Twilio(process.env.TWILIO_ACCOUNT_SID, pro
 const FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
 
 if (!HAS_TWILIO) {
-  console.warn('⚠️ Warning: Twilio credentials not configured in .env. Reminders will be printed to the console (MOCK mode).');
+  console.warn('⚠️ Warning: Twilio credentials not configured. Reminders will be printed to the console (MOCK mode).');
 }
 
+// Robust persistence with in-memory fallback for read-only serverless filesystems
+let inMemoryReminders = [];
+const remindersFile = path.join(process.cwd(), 'reminders.json');
 
-// Helper to load and save reminders
-const remindersFile = path.join(__dirname, 'reminders.json');
 function loadReminders() {
   try {
-    const data = fs.readFileSync(remindersFile, 'utf8');
-    return JSON.parse(data);
+    if (fs.existsSync(remindersFile)) {
+      const data = fs.readFileSync(remindersFile, 'utf8');
+      inMemoryReminders = JSON.parse(data);
+    }
+    return inMemoryReminders;
   } catch (e) {
-    return [];
+    console.error('Failed to read reminders file, using in-memory list:', e.message);
+    return inMemoryReminders;
   }
 }
+
 function saveReminders(list) {
-  fs.writeFileSync(remindersFile, JSON.stringify(list, null, 2));
+  inMemoryReminders = list;
+  try {
+    fs.writeFileSync(remindersFile, JSON.stringify(list, null, 2));
+  } catch (e) {
+    console.warn('⚠️ Warning: File system is read-only. Reminders saved in-memory only.');
+  }
 }
 
-// In‑memory map of scheduled timeouts to allow server restart persistence (simple implementation)
+// In‑memory map of scheduled timeouts
 const scheduled = new Map();
 
 function scheduleReminder(reminder) {
@@ -48,13 +56,11 @@ function scheduleReminder(reminder) {
   const now = new Date();
   const delay = sendAt - now;
   if (delay <= 0) {
-    // Time already passed – send immediately
     sendSms(reminder);
     return;
   }
   const timeoutId = setTimeout(() => {
     sendSms(reminder);
-    // Remove from stored list after sending
     const all = loadReminders().filter(r => r.id !== reminder.id);
     saveReminders(all);
     scheduled.delete(reminder.id);
@@ -74,7 +80,6 @@ function sendSms({ name, phone, medicine, datetime }) {
     console.log(`\n========================================\n[SIMULATED SMS SENT TO ${phone}]\nMessage: ${message}\n========================================\n`);
   }
 }
-
 
 // Load existing reminders on startup and schedule them
 loadReminders().forEach(scheduleReminder);
@@ -98,12 +103,19 @@ app.post('/api/reminders', (req, res) => {
   scheduleReminder(reminder);
   res.json({ success: true, reminderId: reminder.id });
 });
+
 // API endpoint to get all reminders
 app.get('/api/reminders', (req, res) => {
   const list = loadReminders();
   res.json(list);
 });
 
-app.listen(PORT, () => {
-  console.log(`Reminder server listening on http://localhost:${PORT}`);
-});
+// Export app for Vercel
+module.exports = app;
+
+// Run listen only if run directly (local development)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Reminder server listening on http://localhost:${PORT}`);
+  });
+}
