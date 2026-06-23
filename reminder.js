@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const datetime = document.getElementById('reminder-datetime').value;
 
     if (!name || !phone || !medicine || !datetime) {
-      alert('الرجاء ملء جميع الحقول');
+      showToast('الرجاء ملء جميع الحقول');
       return;
     }
 
@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
-        alert('تم تسجيل التذكير بنجاح!');
+        showToast('تم تسجيل التذكير بنجاح!');
         form.reset();
       } else {
         const err = await response.text();
-        alert('فشل الإرسال: ' + err);
+        showToast('فشل الإرسال: ' + err);
       }
     } catch (err) {
       console.error(err);
-      alert('خطأ في الاتصال بالخادم');
+      showToast('خطأ في الاتصال بالخادم');
     }
   });
 });

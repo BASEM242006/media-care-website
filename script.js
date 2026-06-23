@@ -718,6 +718,93 @@ function initChatbot() {
       : 'That is an excellent inquiry! MediCare coordinates reminders and clinic schedules. Contact our support or book a doctor slot for detailed reviews.'
   };
 
+  // ---------- Doctor Management ----------
+  // Removed redundant initDoctorManagement implementation. Consolidated doctor management logic is defined later in the script.
+
+    const addBtn = $('#add-doctor-btn');
+    const modal = $('#doctor-modal');
+    const overlay = $('#overlay');
+    const form = $('#doctor-form');
+    const grid = $('#doctors-grid');
+    if (!addBtn || !modal || !overlay || !form || !grid) return;
+
+    // Open modal
+    addBtn.addEventListener('click', () => {
+      modal.classList.add('show');
+      overlay.classList.add('show');
+    });
+
+    // Close modal
+    document.getElementById('close-doctor-modal').addEventListener('click', () => {
+      modal.classList.remove('show');
+      overlay.classList.remove('show');
+    });
+    overlay.addEventListener('click', () => {
+      modal.classList.remove('show');
+      overlay.classList.remove('show');
+    });
+
+    // Helper to create a card element
+    function createDoctorCard(doctor) {
+      const card = document.createElement('div');
+      card.className = 'glass-card doctor-card';
+      card.setAttribute('data-aos', 'zoom-in');
+      card.innerHTML = `
+        <div class="doctor-photo">
+          <i class="fas fa-stethoscope"></i>
+        </div>
+        <h3>${doctor.name}</h3>
+        <p>${doctor.specialty}</p>
+        <span style="font-size:0.8rem; color: var(--text-secondary); margin:0.5rem 0 1.5rem; display:block;">خبرة ${doctor.experience} سنة${doctor.experience > 1 ? '&#x643;' : ''}</span>
+        <a href="contact.html" class="btn btn-primary" style="padding:0.6rem 1.5rem; font-size:0.9rem; width:100%;">احجز زيارة افتراضية</a>
+      `;
+      return card;
+    }
+
+    // Load stored doctors
+    function loadDoctors() {
+      const stored = localStorage.getItem('doctors');
+      if (stored) {
+        try {
+          const doctors = JSON.parse(stored);
+          doctors.forEach(doc => grid.appendChild(createDoctorCard(doc)));
+        } catch (e) { console.error('Failed to parse doctors', e); }
+      }
+    }
+
+    // Save doctors array
+    function saveDoctors(doctors) {
+      localStorage.setItem('doctors', JSON.stringify(doctors));
+    }
+
+    // Form submission
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.querySelector('input[name="name"]').value.trim();
+      const specialty = form.querySelector('input[name="specialty"]').value.trim();
+      const experience = form.querySelector('input[name="experience"]').value.trim();
+      if (!name || !specialty || !experience) {
+        showToast(currentLang === 'ar' ? 'يرجى ملء جميع الحقول.' : 'Please fill all fields.');
+        return;
+      }
+      const doctor = { name, specialty, experience };
+      // Append to UI
+      grid.appendChild(createDoctorCard(doctor));
+      // Persist
+      const existing = JSON.parse(localStorage.getItem('doctors') || '[]');
+      existing.push(doctor);
+      saveDoctors(existing);
+      // Close modal
+      modal.classList.remove('show');
+      overlay.classList.remove('show');
+      form.reset();
+      showToast(currentLang === 'ar' ? 'تمت إضافة الطبيب بنجاح.' : 'Doctor added successfully.');
+    });
+
+    // Initial load
+    loadDoctors();
+  }
+
   function appendMessage(text, type) {
     const bubble = document.createElement('div');
     bubble.className = `chat-message ${type}`;
@@ -821,13 +908,29 @@ function renderDoctors(){
   getDoctors().forEach(d=>{
     const card=document.createElement('div');
     card.className='glass-card doctor-card';
-    card.innerHTML=`<div class="doctor-photo"><i class="fas fa-user-doctor"></i></div>
-<h3>${d.name}</h3>
-<p>${d.specialty}</p>
-<span style="font-size:0.8rem; color: var(--text-secondary); margin:0.5rem 0 1.5rem; display:block;">${currentLang==='ar'?'خبرة '+d.experience+' سنة':d.experience+' Years Experience'}</span>
-<button class="edit-doctor btn btn-secondary manage-btn ${localStorage.getItem('userPhone')?'show':''}" data-id="${d.id}">${currentLang==='ar'?'تعديل':'Edit'}</button>`;
+    card.innerHTML=`
+      <div class="doctor-photo">
+        <i class="fas fa-user-md"></i>
+      </div>
+      <h3>${d.name}</h3>
+      <p>${d.specialty}</p>
+      <span style="font-size:0.8rem; color: var(--text-secondary); margin:0.5rem 0 1.5rem; display:block;">
+        ${currentLang==='ar'?'خبرة '+d.experience+' سنة':d.experience+' Years Experience'}
+      </span>
+      <button class="edit-doctor btn btn-secondary manage-btn ${localStorage.getItem('userPhone')?'show':''}" data-id="${d.id}">
+        ${currentLang==='ar'?'تعديل':'Edit'}
+      </button>
+      <button class="delete-doctor btn btn-danger manage-btn ${localStorage.getItem('userPhone')?'show':''}" data-id="${d.id}">
+        ${currentLang==='ar'?'حذف':'Delete'}
+      </button>
+      <a href="contact.html" class="btn btn-primary" style="padding:0.6rem 1.5rem; font-size:0.9rem; width:100%;">
+        ${currentLang==='ar'?'احجز زيارة افتراضية':'Book Virtual Visit'}
+      </a>`;
     container.appendChild(card);
   });
+}
+
+
 }
 function openDoctorModal(editId=null){
   const modal=document.getElementById('doctor-modal');

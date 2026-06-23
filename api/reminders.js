@@ -1,6 +1,7 @@
 // api/server.js – Express backend for Vercel Serverless Function & Local testing
 require('dotenv').config();
 const express = require('express');
+const cron = require('node-cron');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -18,6 +19,10 @@ const HAS_TWILIO = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOK
 const twilioClient = HAS_TWILIO ? new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN) : null;
 const FROM_NUMBER = process.env.TWILIO_FROM_NUMBER;
 
+// Lead time (minutes) before the scheduled medication to send reminder
+const REMINDER_LEAD_MINUTES = parseInt(process.env.REMINDER_LEAD_MINUTES || "15", 10);
+const LEAD_TIME_MS = REMINDER_LEAD_MINUTES * 60 * 1000;
+
 if (!HAS_TWILIO) {
   console.warn('⚠️ Warning: Twilio credentials not configured. Reminders will be printed to the console (MOCK mode).');
 }
@@ -30,7 +35,9 @@ function loadReminders() {
   try {
     if (fs.existsSync(remindersFile)) {
       const data = fs.readFileSync(remindersFile, 'utf8');
-      inMemoryReminders = JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // Ensure each reminder has a 'notified' flag (default false)
+      inMemoryReminders = parsed.map(r => ({ ...r, notified: r.notified ?? false }));
     }
     return inMemoryReminders;
   } catch (e) {
@@ -54,13 +61,16 @@ const scheduled = new Map();
 function scheduleReminder(reminder) {
   const sendAt = new Date(reminder.datetime);
   const now = new Date();
-  const delay = sendAt - now;
+  // Subtract lead time so reminder arrives before the medication time
+  const delay = sendAt - now - LEAD_TIME_MS;
   if (delay <= 0) {
+    // If already within lead window, send immediately
     sendSms(reminder);
     return;
   }
   const timeoutId = setTimeout(() => {
     sendSms(reminder);
+    // Remove reminder after sending (or you could keep it with a 'sent' flag)
     const all = loadReminders().filter(r => r.id !== reminder.id);
     saveReminders(all);
     scheduled.delete(reminder.id);
@@ -68,20 +78,67 @@ function scheduleReminder(reminder) {
   scheduled.set(reminder.id, timeoutId);
 }
 
-function sendSms({ name, phone, medicine, datetime }) {
-  const message = `مرحبا ${name},\nهذا تذكير بجرعة دواءك: ${medicine} في ${new Date(datetime).toLocaleString('ar-EG', { hour12: false })}.\nحافظ على صحتك!`;
-  
-  if (twilioClient) {
-    twilioClient.messages
-      .create({ body: message, from: FROM_NUMBER, to: phone })
-      .then(msg => console.log('SMS sent, SID:', msg.sid))
-      .catch(err => console.error('SMS error:', err));
-  } else {
-    console.log(`\n========================================\n[SIMULATED SMS SENT TO ${phone}]\nMessage: ${message}\n========================================\n`);
+const { sendSms: smsProviderSend } = require('../services/smsProvider');
+const db = require('../db');
+const config = require('../config');
+const MAX_RETRIES = parseInt(process.env.MAX_SMS_RETRIES || '3', 10);
+
+function recordSmsLog({ reminderId, userId, status, attempt, errorMessage }) {
+  const stmt = `INSERT INTO sms_logs (reminder_id, user_id, status, attempt, error_message) VALUES (?, ?, ?, ?, ?)`;
+  db.run(stmt, [reminderId, userId, status, attempt, errorMessage || null], (err) => {
+    if (err) console.error('Failed to insert sms log:', err.message);
+  });
+}
+
+async function attemptSendSms(reminder, attempt = 1) {
+  const { name, phone, medicine, datetime, id, user_id } = reminder;
+  const formattedPhone = phone.startsWith('+') ? phone : `+${phone}`;
+  const message = `مرحبا ${name},\nهذا تذكير بجرعة دوائك: ${medicine} في ${new Date(datetime).toLocaleString('ar-EG', { hour12: false })}.\nحافظ على صحتك!`;
+
+  try {
+    await smsProviderSend(formattedPhone, message);
+    console.log('SMS sent, reminder ID:', id);
+    recordSmsLog({ reminderId: id, userId: user_id, status: 'sent', attempt, errorMessage: null });
+    // Mark reminder as notified
+    db.run(`UPDATE reminders SET notified = 1 WHERE id = ?`, [id]);
+  } catch (err) {
+    console.error('SMS send error (attempt', attempt, '):', err.message);
+    recordSmsLog({ reminderId: id, userId: user_id, status: 'failed', attempt, errorMessage: err.message });
+    if (attempt < MAX_RETRIES) {
+      const backoff = Math.min(60000 * Math.pow(2, attempt - 1), 15 * 60 * 1000); // exponential, max 15min
+      setTimeout(() => attemptSendSms(reminder, attempt + 1), backoff);
+    }
   }
 }
 
+function sendSms(reminder) {
+  // Wrapper to start first attempt
+  attemptSendSms(reminder, 1);
+}
+
 // Load existing reminders on startup and schedule them
+loadReminders().forEach(scheduleReminder);
+
+// ---------- Automatic notification cron ----------
+// Runs every minute to check for upcoming reminders within lead time
+cron.schedule('* * * * *', () => {
+  const now = new Date();
+  const reminders = loadReminders();
+  reminders.forEach(rem => {
+    if (!rem.notified) {
+      const reminderTime = new Date(rem.datetime);
+      const diff = reminderTime - now;
+      if (diff <= LEAD_TIME_MS && diff > 0) {
+        // Send SMS and mark as notified
+        sendSms(rem);
+        rem.notified = true;
+        console.log(`✅ Reminder sent for ${rem.name} (ID: ${rem.id})`);
+      }
+    }
+  });
+  // Persist changes (notified flags)
+  saveReminders(reminders);
+});
 loadReminders().forEach(scheduleReminder);
 
 // API endpoint to receive new reminder
@@ -96,6 +153,7 @@ app.post('/api/reminders', (req, res) => {
     phone,
     medicine,
     datetime,
+    notified: false,
   };
   const list = loadReminders();
   list.push(reminder);
@@ -104,14 +162,15 @@ app.post('/api/reminders', (req, res) => {
   res.json({ success: true, reminderId: reminder.id });
 });
 
-// API endpoint to get all reminders
+const adminRouter = require('./routes/admin');
+app.use('/api/admin', adminRouter);
 app.get('/api/reminders', (req, res) => {
   const list = loadReminders();
   res.json(list);
 });
 
 // Export app for Vercel
-module.exports = app;
+module.exports = { app, scheduleReminder, sendSms };
 
 // Run listen only if run directly (local development)
 if (require.main === module) {
