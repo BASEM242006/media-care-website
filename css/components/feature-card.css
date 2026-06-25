@@ -1,0 +1,45 @@
+/* ---------- Feature Card Section ---------- */
+.features-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.feature-card {
+  text-align: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.35rem;
+}
+
+.feature-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--border-radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  box-shadow: 0 8px 16px var(--glass-shadow);
+  transition: all var(--transition-fast);
+}
+
+.feature-icon:hover {
+  background: var(--accent-gradient);
+  color: #fff;
+  transform: scale(1.07);
+}
+
+.feature-card:hover .feature-icon {
+  background: var(--accent-gradient);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.1) rotate(6deg);
+}
+
+.feature-card h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+}

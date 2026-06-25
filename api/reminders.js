@@ -9,7 +9,13 @@ const path = require('path');
 const { Twilio } = require('twilio');
 
 const app = express();
+app.use(express.static(process.cwd()));
 const PORT = process.env.PORT || 3000;
+
+// Serve index.html at the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'index.html'));
+});
 
 app.use(cors());
 app.use(bodyParser.json());

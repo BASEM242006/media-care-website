@@ -1,0 +1,16 @@
+/* ---------- Services Section ---------- */
+.services-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.service-card {
+  text-align: center;
+}
+
+.service-icon {
+  font-size: 3.25rem;
+  margin-bottom: 1.75rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

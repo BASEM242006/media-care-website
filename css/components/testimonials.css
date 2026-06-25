@@ -1,0 +1,40 @@
+/* ---------- Testimonial Carousel ---------- */
+.testimonial-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 1.5rem 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
+.testimonial-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 2.5rem;
+}
+
+.testimonial-card {
+  flex: 0 0 calc(33.333% - 1.666rem);
+  min-width: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 420px;
+}
+
+.testimonial-card .quote {
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+}
+
+.testimonial-card .author {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1rem;
+}

@@ -1,0 +1,18 @@
+/* Modal component */
+.modal.show,
+.modal[style*="display:block"] {
+  display: block;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1990;
+  display: none;
+}
+
+.overlay.show,
+.overlay[style*="display:block"] {
+  display: block;
+}

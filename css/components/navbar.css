@@ -1,0 +1,96 @@
+/* Navbar Component */
+.navbar {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-elevated);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent-gradient);
+  transition: width var(--transition-fast);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--navbar-bg);
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal);
+  }
+  .nav-links.open {
+    max-height: 500px; /* enough for links */
+  }
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
